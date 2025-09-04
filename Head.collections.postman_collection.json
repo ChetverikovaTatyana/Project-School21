@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "ae4be1dc-82ce-4dd3-850e-9824169b07a5",
+		"name": "Head collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46978608",
+		"_collection_link": "https://mission-geoscientist-33175989-7672443.postman.co/workspace/%25D0%25A2%25D0%25B0%25D0%25BD%25D1%258E%25D1%2588%25D0%25BA%25D0%25B0-%25D0%25A7%25D0%25B5%25D1%2582%25D0%25B2%25D0%25B5%25D1%2580%25D0%25B8%25D0%25BA%25D0%25BE%25D0%25B2%25D0%25B0's-Workspace~15d853be-879d-499c-8e72-dd22b0c8d669/collection/46978608-ae4be1dc-82ce-4dd3-850e-9824169b07a5?action=share&source=collection_link&creator=46978608"
+	},
+	"item": [
+		{
+			"name": "Get Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Провера времени ответа",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"    // Проверка успешного ответа ",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Проверка, что в ответе пришли данные (массив пользователей)",
+							"pm.test(\"Comments array exists\", function () {",
+							"    const users = pm.response.json();",
+							"    pm.expect(users).to.be.an('array').that.is.not.empty;",
+							"});",
+							"",
+							"// Дополнительно: проверка минимальной длины массива (минимум 500 комментов)",
+							"pm.test(\"At least 100 posts returned\", function () {",
+							"    const users = pm.response.json();",
+							"    pm.expect(users.length).to.be.at.least(100);",
+							"});",
+							"",
+							"// Для проверки присутствия обязательных полей",
+							"const firstUser = pm.response.json()[0];",
+							"pm.test(\"All required fields present in first user object\", function () {",
+							"    pm.expect(firstUser).to.have.property('userId');",
+							"    pm.expect(firstUser).to.have.property('id');",
+							"    pm.expect(firstUser).to.have.property('title');",
+							"    pm.expect(firstUser).to.have.property('body');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{holder}}/posts",
+					"host": [
+						"{{holder}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User Created Successfully\", function () {",
+							"    pm.expect(pm.response.code).to.equal(201);",
+							"});",
+							"",
+							"    //Проверка времени ответа",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"    // API возвращает ожидаемую структуру",
+							"pm.test(\"Response contains all required fields\", function () {",
+							"    const response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.have.property('userId');",
+							"    pm.expect(response).to.have.property('id');",
+							"    pm.expect(response).to.have.property('title');",
+							"    pm.expect(response).to.have.property('body');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"userId\": 500,\n        \"id\": 501,\n        \"title\": \"test\",\n        \"body\": \"test\"\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{holder}}/posts",
+					"host": [
+						"{{holder}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Корректно изменилось \"Name\"",
+							"var responseJson = pm.response.json();",
+							"pm.test(\"userId updated correctly\", function() {",
+							"    pm.expect(responseJson.title).to.eql(\"test1\");",
+							"    pm.expect(responseJson.body).to.eql(\"test2\");",
+							"});",
+							"",
+							"// Проверка успешного ответа",
+							"pm.test(\"Comment Updated Successfully\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"userId\": 1,\n        \"id\": 8,\n        \"title\": \"test1\",\n        \"body\": \"test2\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{holder}}/posts/1",
+					"host": [
+						"{{holder}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Проверка успешного ответа",
+							"pm.test(\"Body Updated Successfully\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"    // Проверяем, что в ответе есть body с нужным значением",
+							"pm.test(\"Body was updated and returned correctly\", function () {",
+							"    const response = pm.response.json();",
+							"    ",
+							"    pm.expect(response.body).to.exist;",
+							"    pm.expect(response.body).to.eql(\"test3\");",
+							"});",
+							"",
+							" // Проверка времени ответа",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"body\": \"test3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{holder}}/posts/3",
+					"host": [
+						"{{holder}}"
+					],
+					"path": [
+						"posts",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Del posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Запрос на удаление успешен",
+							"pm.test(\"Posts Deleted Successfully\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"    // Провера времени ответа",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{holder}}/posts/2",
+					"host": [
+						"{{holder}}"
+					],
+					"path": [
+						"posts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://users.bugred.ru",
+			"type": "string"
+		}
+	]
+}
