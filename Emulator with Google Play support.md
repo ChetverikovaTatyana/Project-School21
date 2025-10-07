@@ -6,9 +6,9 @@
 
 **2.** Logcat в Android Studio.
 
-![Logs](../Images/Logs.jpg)
+![Logs](../main/Image/Logs.jpg)
 
-**5.** Пошаговая инструкция создания эмулятора (симулятора) в Xcode.
+**3.** Пошаговая инструкция создания эмулятора (симулятора) в Xcode.
 
 1 Запустить в Xcode Device Manager (Window-Devise and Simulators).
 
