@@ -1,19 +1,12 @@
-**2.** Эмулятор с поддержкой Google Play.
+**1.** Эмулятор с поддержкой Google Play.
 
-![Эмулятор](../misc/images/1.jpg)
+![Эмулятор](../Images/1.jpg)
 
-![GooglePlay](../misc/images/2.jpg)
+![GooglePlay](../Images/2.jpg)
 
+**2.** Logcat в Android Studio.
 
-**3.** Процесс включения режима разработчика для телефона Android на Xiaomi Redmi NOte 10 Pro.
-
-Настройки - о телефоне - 7 раз нажать на версию облочки MIUI-вернуться в настройки-расширенные настройки-для разработчиков.
-
-![Для разработчиков](../misc/images/3.jpg)
-
-**4.** Logcat в Android Studio.
-
-![Logs](../misc/images/Logs.jpg)
+![Logs](../Images/Logs.jpg)
 
 **5.** Пошаговая инструкция создания эмулятора (симулятора) в Xcode.
 
