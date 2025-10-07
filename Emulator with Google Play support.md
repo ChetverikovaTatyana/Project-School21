@@ -2,7 +2,7 @@
 
 ![Эмулятор](../main/Image/1.jpg)
 
-![GooglePlay](../Images/2.jpg)
+![GooglePlay](../main/Image/2.jpg)
 
 **2.** Logcat в Android Studio.
 
