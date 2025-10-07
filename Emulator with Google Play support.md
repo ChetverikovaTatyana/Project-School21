@@ -1,6 +1,6 @@
 **1.** Эмулятор с поддержкой Google Play.
 
-![Эмулятор](../Images/1.jpg)
+![Эмулятор](../Image/1.jpg)
 
 ![GooglePlay](../Images/2.jpg)
 
